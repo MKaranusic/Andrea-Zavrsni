@@ -1,14 +1,38 @@
 import React, { useEffect, useState } from "react";
 import newsDataMapper from "../dataStructuringFunctions/newsDataMapper";
-import {fetchSportNews} from "../functions/apiFunctions"
+import { fetchSportNews } from "../functions/apiFunctions"
+import {
+  fetchAddStringToSearchHistory
+} from "../functions/apiFunctions";
+import { useContextComp } from "../components/MyContext";
 
 const SportNews = () => {
   const [articlesList, setArticlesList] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [originalArticlesList, setOriginalArticlesList] = useState([]);
+  const { user } = useContextComp();
 
-  const fetchSportNewsData = async() => {
+  const fetchSportNewsData = async () => {
     const articles = await fetchSportNews();
-    setArticlesList(newsDataMapper(articles));
+    const mappedArticles = newsDataMapper(articles);
+    setArticlesList(mappedArticles);
+    setOriginalArticlesList(mappedArticles);
   }
+
+  const onSearchClick = () => {
+    if (searchTerm.trim() === '') {
+      setArticlesList(originalArticlesList);
+    }
+    else {
+      const filteredArticles = originalArticlesList.map(column =>
+        column.filter(article =>
+          article.title.toLowerCase().includes(searchTerm.toLowerCase())
+        )
+      );
+      setArticlesList(filteredArticles);
+      fetchAddStringToSearchHistory(user.id, searchTerm.toLowerCase())
+    }
+  };
 
   useEffect(() => {
     fetchSportNewsData();
@@ -17,6 +41,14 @@ const SportNews = () => {
 
   return (
     <div id="sport-news">
+      <div id="row">
+        <input
+          type="text"
+          value={searchTerm}
+          onChange={e => setSearchTerm(e.target.value)}
+        />
+        <button onClick={onSearchClick}>Search</button>
+      </div>
       <div id="row">
         {articlesList.map((articleColumn, i) => {
           return (

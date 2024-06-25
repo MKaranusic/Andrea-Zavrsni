@@ -155,8 +155,7 @@ export const updateFavLeagueInDb = async (
 
 export const fetchSportNews = async (input) => {
   return fetch(
-    `https://newsapi.org/v2/top-headlines?country=us&category=sports&apiKey=${
-      import.meta.env.VITE_REACT_APP_API_KEY_SPORT_NEWS
+    `https://newsapi.org/v2/top-headlines?country=us&category=sports&apiKey=${import.meta.env.VITE_REACT_APP_API_KEY_SPORT_NEWS
     }`
   )
     .then((response) => response.json())
@@ -306,4 +305,39 @@ export const fetchRegisterUser = async (userInfo) => {
       return data;
     })
     .catch((err) => console.error(err));
+};
+
+export const fetchAddStringToSearchHistory = (
+  userId,
+  searchTerm
+) => {
+  return fetch(`http://localhost:3000/settings/addStringToSearchHistory`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" }, //important!
+    body: JSON.stringify({
+      userId: userId,
+      searchTerm: searchTerm,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((error) => console.error(error));
+};
+
+export const fetchGetStringSearchHistory = (
+  userId
+) => {
+  console.log("fetchGetStringSearchHistory", userId)
+  return fetch(`http://localhost:3000/settings/getSearchHistory?userId=${userId}`, {
+    method: "GET",
+    headers: { "Content-Type": "application/json" }
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      return data
+    })
+    .catch((error) => console.error(error));
 };

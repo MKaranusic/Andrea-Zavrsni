@@ -4,6 +4,8 @@ import UsersSettings from "./UsersSettings";
 import AdminSettings from "./AdminSettings";
 import UniversalCookie from "universal-cookie";
 import SearchHistoryLeagues from "./SearchHistoryLeagues";
+import SearchHistory from "./SearchHistory";
+
 
 const Settings = () => {
   const { user, setUser } = useContextComp();
@@ -29,9 +31,13 @@ const Settings = () => {
           <AdminSettings deleteAccountFun={deleteAccountFun} />
         )}
         <div id="search-history">
-          <h5>Search History</h5>
-
+          <h5>Leagues Click History</h5>
           <SearchHistoryLeagues />
+        </div>
+        <div id="search-history">
+          <h5>Search History</h5>
+          <button>Delete Search History</button>
+          <SearchHistory />
         </div>
       </div>{" "}
     </div>
