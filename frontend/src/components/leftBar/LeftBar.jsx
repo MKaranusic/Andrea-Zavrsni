@@ -109,7 +109,6 @@ const LeftBar = () => {
               placeholder={`type ${searchBy} name`}
               autoComplete="off"
             />{" "}
-            <SearchHistoryLeagues nameSearch={nameSearch} setNameSearch={setNameSearch}/>
           </form>
           <div>
             {Object.values(leaguesList).length > 0 &&
