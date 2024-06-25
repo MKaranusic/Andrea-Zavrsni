@@ -36,7 +36,6 @@ const Settings = () => {
         </div>
         <div id="search-history">
           <h5>Search History</h5>
-          <button>Delete Search History</button>
           <SearchHistory />
         </div>
       </div>{" "}
