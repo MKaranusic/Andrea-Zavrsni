@@ -149,5 +149,45 @@ router.patch("/changePassword", (req, res) => {
   });
 });
 
+router.post("/addStringToSearchHistory", (req, res) => {
+  const { userId, searchTerm } = req.body;
+
+  let datetime = new Date(); // Current date and time
+  datetime.setHours(datetime.getHours() + 2); // Add 2 hours
+  let visitedDate = datetime.toISOString().replace('T', ' ').substring(0, 19); // Format the date to YYYY-MM-DD HH:mm:ss
+
+  if (userId !== '' && userId !== 'undefined' && userId != null) {
+    let sql = "INSERT INTO search_history (`userId`, `searchTerm`, `visitedDate`) VALUES (?, ?, ?)";
+
+    pool.query(sql, [userId, searchTerm, visitedDate], (err, data) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(data);
+      }
+    });
+  }
+});
+
+router.get("/getSearchHistory", (req, res) => {
+  const { userId } = req.query;
+  let sql;
+  console.log(req.url)
+  console.log("getSearchHistory", userId)
+
+  if (userId !== '' && userId !== 'undefined') {
+    sql = `SELECT userId, searchTerm, visitedDate FROM search_history WHERE userId = "${userId}" ORDER BY visitedDate DESC`;
+    console.log(sql)
+
+    pool.query(sql, (err, data) => {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(data)
+        res.send(data);
+      }
+    });
+  }
+});
 
 module.exports = router;
