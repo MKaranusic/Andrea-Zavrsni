@@ -47,13 +47,6 @@ const SearchHistoryLeagues = ({ nameSearch, setNameSearch }) => {
     return array;
   };
 
-  const removeFromSearchHistory = async (leagueName, sport) => {
-    await fetchRemoveFromSearchHistory(user.id, sport, leagueName);
-    setLeagueHistory((prev) =>
-      prev.filter((el) => !(el.leagueName === leagueName && el.sport === sport))
-    );
-  };
-
   return (
     <div className="leagues-search-history">
       {leagueHistory.length > 0 &&
