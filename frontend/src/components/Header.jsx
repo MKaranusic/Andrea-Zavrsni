@@ -165,7 +165,7 @@ const Header = () => {
         {user.name &&
           <li
             onClick={() => setOpenMenu(false)}
-            className={`nav-button ${window.location?.pathname == "/profile" ? "active" : ""
+            className={`nav-button ${window.location?.pathname == "/settings" ? "active" : ""
               }`}
           >
             <Link to="settings">PROFILE</Link>

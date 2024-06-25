@@ -32,7 +32,7 @@ app.use("/login", loginRoute);
 app.use("/register", registerRoute);
 app.use("/favorite-leagues", favoriteLeaguesRoute);
 app.use("/favorite-matches", favoriteMatchesRoute);
-app.use("/profile", settingsRoute);
+app.use("/settings", settingsRoute);
 
 app.listen(3000, () => {
   console.log(`Server is running at http://localhost:3000`);
