@@ -8,13 +8,13 @@ const AdminSettings = ({ deleteAccountFun }) => {
   const [usersList, setUsersList] = useState([]);
   const [usersListVisibility, setUserListVisibility] = useState(false);
 
-
   useEffect(() => {
     getUsersList("");
   }, []);
 
   const getUsersList = async (input) => {
-    const usersList = await fetchUsersList(input);
+    const usersListTemp = await fetchUsersList(input);
+    const usersList = usersListTemp.filter(user => user.name !== "Admin");
     setUsersList(usersList);
   };
 

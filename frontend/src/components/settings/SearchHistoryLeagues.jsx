@@ -49,7 +49,7 @@ const SearchHistoryLeagues = ({ nameSearch, setNameSearch }) => {
 
   return (
     <div className="leagues-search-history">
-      {leagueHistory.length > 0 &&
+      {leagueHistory.length > 0 ? (
         filterBySearch(leagueHistory).map((element) => {
           return (
             <div
@@ -61,7 +61,10 @@ const SearchHistoryLeagues = ({ nameSearch, setNameSearch }) => {
               <p>{formatDate(element.visitedDate)}</p>
             </div>
           );
-        })}
+        })
+      ) : (
+        <p>No search history available</p>
+      )}
     </div>
   );
 };
